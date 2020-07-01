@@ -1,12 +1,14 @@
 import jwt from 'jsonwebtoken'
 
+import authConfig from '../../config/auth'
+
 import User from '../models/User'
 
 class sessionController {
   async store(request, response) {
 
     const { email, password } = request.body
-    const user = await User.findOne({where: {email: email}})
+    const user = await User.findOne({where: { email }})
 
     if(!user) {
       return response.status(401).json({ERROR: 'User not found!'})
@@ -24,8 +26,8 @@ class sessionController {
         name,
         email,
       },
-      token: jwt.sign({ id }, 'cbc3fbda0e3639404d30616d405b117c', {
-        expiresIn: '7d',
+      token: jwt.sign({ id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn
       })
     })
   }
