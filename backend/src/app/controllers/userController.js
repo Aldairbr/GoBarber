@@ -4,10 +4,10 @@ class userController {
 
  async store(request, response) {
 
-    const emailExist = await User.findOne({ where: { email: request.body.email } })
+    const userExists = await User.findOne({ where: { email: request.body.email } })
 
-    if(emailExist){
-      return response.status(400).json({ERROR: "Email already exists!" })
+    if(userExists){
+      return response.status(400).json({ERROR: 'Email already exists!' })
     }
     const { id, name, email, provider } = await User.create(request.body)
 
@@ -17,6 +17,12 @@ class userController {
       email,
       provider,
     })
+  }
+
+  async update(request, response) {
+    console.log(request.userId)
+
+    return response.json({ok: true})
   }
 
   async index(request, response) {
