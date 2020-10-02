@@ -1,9 +1,11 @@
+import { HOST, USER, DATABASE, PASSWORD, DIALECT } from './envConfig'
+
 module.exports = {
-  dialect: 'postgres',
-  host: '192.168.99.100',
-  username: 'postgres',
-  password: 'docker',
-  database: 'gobarber',
+  dialect: DIALECT,
+  host: HOST,
+  username: USER,
+  password: PASSWORD,
+  database: DATABASE,
   define: {
     timestamps: true,
     underscored: true,
