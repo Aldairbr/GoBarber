@@ -20,7 +20,7 @@ class userController {
       return response.status(401).json({ERROR: 'Validation errors'})
     }
 
-  const userExists = await User.findOne({ where: { email: request.body.email } })
+    const userExists = await User.findOne({ where: { email: request.body.email } })
 
     if(userExists){
       return response.status(400).json({ERROR: 'Email already exists!' })
@@ -62,7 +62,7 @@ class userController {
       if(email !== user.email){
         const userExists = await User.findOne({ where: { email } })
 
-      if(!userExists){
+      if(userExists){
           return response.status(400).json({ERROR: 'User already exists!' })
         }
       }
@@ -71,7 +71,7 @@ class userController {
         return response.status(401).json({ERROR: 'Password does not match!'})
       }
 
-    const { id, name, provider } = user.update(request.body)
+    const { id, name, provider } = await user.update(request.body)
 
     return response.json({
       id,
@@ -89,20 +89,18 @@ class userController {
       return response.status(400).json({ERROR: "User not found!"})
     }
 
-    return response.json({ userList })
+    return response.json( userList )
   }
 
   async show(request, response) {
 
     const user = await User.findOne({where: {id: request.params.id}})
 
-    console.log(user)
-
     if(!user) {
       return response.status(404).json({ERROR: "User not found"})
     }
 
-    return response.json({ user })
+    return response.json( user )
   }
 
 }
