@@ -14,7 +14,7 @@ module.exports = {
       path: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -24,10 +24,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-    })
+    });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('files')
-  }
+    return queryInterface.dropTable('files');
+  },
 };
