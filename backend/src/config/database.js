@@ -1,4 +1,4 @@
-import { HOST, USER, DATABASE, PASSWORD, DIALECT } from './envConfig'
+const { HOST, USER, DATABASE, PASSWORD, DIALECT } = require('./envConfig')
 
 module.exports = {
   dialect: DIALECT,
