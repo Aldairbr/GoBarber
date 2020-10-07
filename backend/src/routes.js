@@ -7,6 +7,7 @@ import sessionController from './app/controllers/sessionController';
 import fileController from './app/controllers/fileController';
 import providerController from './app/controllers/providerController';
 import AppointmentController from './app/controllers/appointmentController';
+import ScheduleController from './app/controllers/scheduleController';
 
 import authMidleware from './app/midlewares/auth';
 
@@ -29,8 +30,9 @@ routes.put('/users', userController.update);
 routes.get('/providers', providerController.index);
 
 routes.post('/appointments', AppointmentController.store);
-
 routes.get('/appointments', AppointmentController.index);
+
+routes.get('/schedule', ScheduleController.index);
 
 routes.post('/files', upload.single('file'), fileController.store);
 
