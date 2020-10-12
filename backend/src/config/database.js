@@ -1,4 +1,4 @@
-const { HOST, USER, DATABASE, PASSWORD, DIALECT } = require('./envConfig')
+const { HOST, USER, DATABASE, PASSWORD, DIALECT } = require('./envConfig');
 
 module.exports = {
   dialect: DIALECT,
@@ -11,4 +11,4 @@ module.exports = {
     underscored: true,
     underscoredAll: true,
   },
-}
+};
