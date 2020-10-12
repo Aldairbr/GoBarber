@@ -1,8 +1,10 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import Appointment from '../models/Appointment';
 import User from '../models/User';
 import File from '../models/File';
+import Notification from '../schemas/Notification';
 
 class AppointmentController {
   async store(request, response) {
@@ -34,6 +36,7 @@ class AppointmentController {
     /**
      * Check for past dates
      */
+
     const hourStart = startOfHour(parseISO(date));
 
     if (isBefore(hourStart, new Date())) {
@@ -45,6 +48,7 @@ class AppointmentController {
     /**
      * Check date availability
      * */
+
     const checkAvailability = await Appointment.findOne({
       where: {
         provider_id,
@@ -64,6 +68,20 @@ class AppointmentController {
       date,
     });
 
+    /**
+     * Notify appointment provider
+     */
+
+    const user = await User.findByPk(request.userId);
+
+    const formattedDate = format(hourStart, "dd 'de' MMMM', às' H:mm'h'", {
+      locale: pt,
+    });
+
+    await Notification.create({
+      content: `Novo agendamento de ${user.name} para dia ${formattedDate}`,
+      user: provider_id,
+    });
     return response.json(appointment);
   }
 
