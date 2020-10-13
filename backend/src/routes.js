@@ -8,6 +8,7 @@ import fileController from './app/controllers/fileController';
 import providerController from './app/controllers/providerController';
 import AppointmentController from './app/controllers/appointmentController';
 import ScheduleController from './app/controllers/scheduleController';
+import NotificationController from './app/controllers/notificationController';
 
 import authMidleware from './app/midlewares/auth';
 
@@ -19,11 +20,7 @@ routes.get('/users', userController.index);
 routes.get('/users/:id', userController.show);
 routes.post('/sessions', sessionController.store);
 
-routes.use(authMidleware); // midleware vai pegar de maneira global todas as rotas
-// abaixo dessa linha. Poderia por direto na rota
-// ex:
-// routes.put(
-// '/users', authMidleware userController.update)
+routes.use(authMidleware);
 
 routes.put('/users', userController.update);
 
@@ -33,6 +30,8 @@ routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
 
 routes.get('/schedule', ScheduleController.index);
+
+routes.get('/notifications', NotificationController.index);
 
 routes.post('/files', upload.single('file'), fileController.store);
 
