@@ -1,4 +1,3 @@
-/* eslint-disable no-unised-vars */
 import nodemailer from 'nodemailer';
 import { resolve } from 'path';
 import exphbs from 'express-handlebars';
